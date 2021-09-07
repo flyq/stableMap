@@ -3,19 +3,6 @@
     "stableMap": {
       "main": "src/stableMap/main.mo",
       "type": "motoko"
-    },
-    "stableMap_assets": {
-      "dependencies": [
-        "stableMap"
-      ],
-      "frontend": {
-        "entrypoint": "src/stableMap_assets/src/index.html"
-      },
-      "source": [
-        "src/stableMap_assets/assets",
-        "dist/stableMap_assets/"
-      ],
-      "type": "assets"
     }
   },
   "defaults": {
@@ -24,7 +11,6 @@
       "packtool": ""
     }
   },
-  "dfx": "0.8.1",
   "networks": {
     "local": {
       "bind": "127.0.0.1:8000",
