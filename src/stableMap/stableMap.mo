@@ -16,7 +16,6 @@ module {
 
     public func size<K, V>(hm: HashMap<K, V>) : Nat = hm._count;
 
-
     public func defaults<K, V>() : HashMap<K, V> {
         return {
             var table : [var KVs<K, V>] = [var];
@@ -118,4 +117,41 @@ module {
         };
         (ov, hm)
     };
+
+    /// Returns an iterator over the key value pairs in this
+    /// `HashMap`. Does _not_ modify the `HashMap`.
+    public func entries<K,V>(        
+        hm: HashMap<K, V>, 
+    ) : Iter.Iter<(K, V)> {
+        var table = hm.table;
+        if (table.size() == 0) {
+            object { public func next() : ?(K, V) { null } }
+        }
+        else {
+            object {
+                var kvs = table[0];
+                var nextTablePos = 1;
+                public func next () : ?(K, V) {
+                    switch kvs {
+                        case (?(kv, kvs2)) {
+                            kvs := kvs2;
+                            ?kv
+                        };
+                        case null {
+                            if (nextTablePos < table.size()) {
+                            kvs := table[nextTablePos];
+                            nextTablePos += 1;
+                            next()
+                            } else {
+                                null
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+
+
 };
